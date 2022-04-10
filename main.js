@@ -79,39 +79,45 @@ const isLegal = (startStack, endStack) => {
   let startArray = stacks[startStack];
   let endArray = stacks[endStack];
   /**
-   * starting stacks cannot be empty... .length != 0
+   * starting stack cannot be empty... .length != 0
    */
    let startLength = startArray.length;
 
-   //set start position for comparison
+   //set start position for comparison for pieceA
    let posA = startLength - 1;
    let endLength = endArray.length;
 
    // set end position for comparison
-   let posB = 0;
+   
+   let posB = 0; //if nothing in the array, position is set to zero for pieceB
    if (endLength > 0){
-     posB = endLength - 1;
-   }else{
-     posB = endLength;
+     posB = endLength - 1; // finding index of piece B which is length of the array -1
    };
 
+   // define pieceA that will be compared to piece B
    let pieceA = startArray[posA];
-   let pieceB = 0;
-   if(endLength!=0){
+   //define pieceB that will be compared to piece A
+   let pieceB = 0; //initial assignment of variable
+   if(endLength!=0){//if array has multiple elements, pieceB is assigned by index position posB
      pieceB = endArray[posB];
    }else{
-     pieceB=0;
+     pieceB=0; //else empty array: pieceB is set at zero for comparison
    };
 
-   if((pieceA < pieceB) && !(startLength > 4) && !(startLength === 0) && !(endLength < 0) && !(endLength > 4)){
+   if(
+     (pieceA < pieceB) && //check that pieceA is less that pieceB for move
+     !(startLength > 4) && //make sure starting array has something in it
+     !(startLength === 0) && //make sure starting array has something in it
+     !(endLength >= 4) // make sure ending array is not full
+     ){
      return true;
-   }else if(pieceA > 0 && pieceB ===0){
+   }else if(pieceA > 0 && pieceB ===0){ 
      return true;
    }else{
      return false
    };
-
 };
+
 
 // What is a win in Towers of Hanoi? When should this function run?
 /**
